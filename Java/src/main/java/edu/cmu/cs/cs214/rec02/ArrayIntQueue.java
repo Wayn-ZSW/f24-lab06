@@ -44,7 +44,7 @@ public class ArrayIntQueue implements IntQueue {
         size = 0;
     }
 
-    /** {@inheritDoc} */
+    /** {@inheritDoc} */    
     public void clear() {
         Arrays.fill(elementData, 0);
         size = 0;
@@ -73,12 +73,13 @@ public class ArrayIntQueue implements IntQueue {
 
     /** {@inheritDoc} */
     public boolean isEmpty() {
-        return size >= 0;
+        return size <= 0; //bug
     }
 
     /** {@inheritDoc} */
     public Integer peek() {
-        return elementData[head];
+
+        return isEmpty() ? null : elementData[head]; //bug
     }
 
     /** {@inheritDoc} */
@@ -99,7 +100,7 @@ public class ArrayIntQueue implements IntQueue {
                 newData[i - head] = elementData[i];
             }
             for (int i = 0; i < head; i++) {
-                newData[head - i] = elementData[i];
+                newData[oldCapacity - head + i] = elementData[i]; // bug
             }
             elementData = newData;
             head = 0;
